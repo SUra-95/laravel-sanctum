@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
-        if(!$user || !Hash::check($data['password'], $user->password)){
+        if (!$user || !Hash::check($data['password'], $user->password)) {
             return response([
                 'message' => 'Bad Credentials',
             ], 401);
@@ -57,5 +57,14 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ]);
+    }
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(
+            [
+                'status' => 'success',
+                'message' => 'User logged out successfully'
+            ]
+        );
     }
 }
