@@ -8,8 +8,53 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * @OA\Info(
+ *    title=" Santum Application API ",
+ *    version="1.0.0",
+ * )
+ */
 class AuthController extends Controller
 {
+    /**
+    * @OA\Post(
+    * path="/api/register",
+    * operationId="Register",
+    * tags={"Register"},
+    * summary="User Register",
+    * description="User Register here",
+    *     @OA\RequestBody(
+    *         @OA\JsonContent(),
+    *         @OA\MediaType(
+    *            mediaType="multipart/form-data",
+    *            @OA\Schema(
+    *               type="object",
+    *               required={"name","email", "password"},
+    *               @OA\Property(property="name", type="text"),
+    *               @OA\Property(property="email", type="text"),
+    *               @OA\Property(property="password", type="password"),
+    *            ),
+    *        ),
+    *    ),
+    *      @OA\Response(
+    *          response=201,
+    *          description="Register Successfully",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Register Successfully",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(
+    *          response=422,
+    *          description="Unprocessable Entity",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(response=400, description="Bad request"),
+    *      @OA\Response(response=404, description="Resource Not Found"),
+    * )
+    */
     public function register(Request $request)
     {
         try {
@@ -48,6 +93,40 @@ class AuthController extends Controller
             ],419);
         }
     }
+
+    /**
+    * @OA\Post(
+    * path="/api/login",
+    * operationId="Login",
+    * tags={"Login"},
+    * summary="User Login",
+    * description="User Login here",
+    *     @OA\RequestBody(
+    *         @OA\JsonContent(),
+    *         @OA\MediaType(
+    *            mediaType="multipart/form-data",
+    *            @OA\Schema(
+    *               type="object",
+    *               required={"email", "password"},
+    *               @OA\Property(property="email", type="text"),
+    *               @OA\Property(property="password", type="password"),
+    *            ),
+    *        ),
+    *    ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="User logged in Successfully",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(
+    *          response=422,
+    *          description="Unprocessable Entity",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(response=400, description="Bad request"),
+    *      @OA\Response(response=404, description="Resource Not Found"),
+    * )
+    */
 
     public function login(Request $request){
         try {
@@ -94,6 +173,34 @@ class AuthController extends Controller
             ], 419);
         }
     }
+
+    /**
+    * @OA\Get(
+    * path="/api/logout",
+    * operationId="Logout",
+    * tags={"Logout"},
+    * summary="User Logout",
+    * description="User Logout here",
+    *     @OA\RequestBody(
+    *         @OA\JsonContent(),
+    *         @OA\MediaType(
+    *            mediaType="multipart/form-data",
+    *        ),
+    *    ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="User logged out Successfully",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(
+    *          response=422,
+    *          description="Unprocessable Entity",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(response=400, description="Bad request"),
+    *      @OA\Response(response=404, description="Resource Not Found"),
+    * )
+    */
 
     public function logout(Request $request)
     {
